@@ -1,0 +1,23 @@
+version: "3.6"
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:12.0.2-ce.0'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost'
+        GITLAB_SHELL_SSH_PORT=10022
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - 80:80
+      - 1022:22
+    volumes:
+      - ./1561771217_2019_06_29_12.0.2_gitlab_backup.tar:/var/opt/gitlab/backups/1561771217_2019_06_29_12.0.2_gitlab_backup.tar
+      - gitlab_conf:/etc/gitlab
+      - gitlab_data:/var/opt/gitlab
+    networks: 
+      - gitlab_network
+volumes:
+  gitlab_conf:
+  gitlab_data:
+networks: 
+  gitlab_network:
